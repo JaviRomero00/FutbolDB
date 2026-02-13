@@ -11,25 +11,19 @@ export default function ForgotPassword({ status }) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('password.email'));
     };
 
     return (
         <GuestLayout>
-            <Head title="Forgot Password" />
+            <Head title="Recuperar contraseña" />
 
-            <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email
-                address and we will email you a password reset link that will
-                allow you to choose a new one.
-            </div>
+            <h1 className="mb-2 text-2xl font-bold text-gray-800">Recuperar contraseña</h1>
+            <p className="mb-4 text-sm text-gray-600">
+                Introduce tu email y te enviaremos un enlace para restablecer la contraseña.
+            </p>
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
+            {status && <div className="mb-4 text-sm font-medium text-emerald-700">{status}</div>}
 
             <form onSubmit={submit}>
                 <TextInput
@@ -45,9 +39,7 @@ export default function ForgotPassword({ status }) {
                 <InputError message={errors.email} className="mt-2" />
 
                 <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Email Password Reset Link
-                    </PrimaryButton>
+                    <PrimaryButton disabled={processing}>Enviar enlace</PrimaryButton>
                 </div>
             </form>
         </GuestLayout>

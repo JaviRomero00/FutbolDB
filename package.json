@@ -3,7 +3,11 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "start": "concurrently -n laravel,vite -c auto \"php artisan serve\" \"vite\""
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": ["esbuild", "@parcel/watcher"]
     },
     "devDependencies": {
         "@headlessui/react": "^2.0.0",

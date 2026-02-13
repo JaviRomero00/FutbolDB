@@ -3,17 +3,15 @@ import { Head } from '@inertiajs/react';
 
 export default function Dashboard() {
     return (
-        <AuthenticatedLayout
-        >
-            <Head title="Dashboard" />
+        <AuthenticatedLayout title="Panel principal">
+            <Head title="Panel principal" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in!
-                        </div>
-                    </div>
+            <div className="card app-card">
+                <div className="card-body p-4 p-md-5">
+                    <h2 className="section-title">Sesión iniciada</h2>
+                    <p className="text-muted mb-0">
+                        Ya puedes navegar a jugadores, equipos y ligas desde el menú superior.
+                    </p>
                 </div>
             </div>
         </AuthenticatedLayout>

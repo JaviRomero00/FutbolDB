@@ -25,6 +25,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Default values for new users.
+     *
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'role' => 'user',
+    ];
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
