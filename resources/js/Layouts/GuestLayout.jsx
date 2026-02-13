@@ -7,13 +7,14 @@ export default function GuestLayout({ children }) {
         <div className="min-h-screen">
             <header className="site-header">
                 <div className="site-header__inner">
-                    <Link className="site-logo" href="/">
+                    <a className="site-logo" href="/">
                         FutbolDB
-                    </Link>
+                    </a>
 
                     <nav className="site-nav" aria-label="Navegación principal">
-                        <Link href="/"><span className="nav-icon">🏠</span>Inicio</Link>
-                        <Link href="/football"><span className="nav-icon">📊</span>Clasificación</Link>
+                        <a href="/"><span className="nav-icon">🏠</span>Inicio</a>
+                        <a href="/football"><span className="nav-icon">📊</span>Clasificación</a>
+                        <a href={route('contact.create')}><span className="nav-icon">✉️</span>Contacto</a>
                         {auth?.user && <Link href={route('dashboard')}><span className="nav-icon">📋</span>Panel</Link>}
                     </nav>
 

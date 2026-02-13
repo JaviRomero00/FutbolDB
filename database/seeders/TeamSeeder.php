@@ -34,6 +34,6 @@ class TeamSeeder extends Seeder
             $rows[] = ['name' => $name, 'league_id' => $premierId, 'created_at' => now(), 'updated_at' => now()];
         }
 
-        DB::table('teams')->insert($rows);
+        DB::table('teams')->upsert($rows, ['name', 'league_id'], ['updated_at']);
     }
 }

@@ -8,16 +8,17 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <div className="min-h-screen">
                 <header className="site-header">
                     <div className="site-header__inner">
-                        <Link className="site-logo" href="/">
+                        <a className="site-logo" href="/">
                             FutbolDB
-                        </Link>
+                        </a>
 
                         <nav className="site-nav" aria-label="Navegación principal">
-                            <Link href="/"><span className="nav-icon">🏠</span>Inicio</Link>
-                            <Link href="/football"><span className="nav-icon">📊</span>Clasificación</Link>
-                            <Link href={route('players.index')}><span className="nav-icon">👤</span>Jugadores</Link>
-                            <Link href={route('teams.index')}><span className="nav-icon">🛡️</span>Equipos</Link>
-                            <Link href={route('leagues.index')}><span className="nav-icon">🏆</span>Ligas</Link>
+                            <a href="/"><span className="nav-icon">🏠</span>Inicio</a>
+                            <a href="/football"><span className="nav-icon">📊</span>Clasificación</a>
+                            <a href={route('players.index')}><span className="nav-icon">👤</span>Jugadores</a>
+                            <a href={route('teams.index')}><span className="nav-icon">🛡️</span>Equipos</a>
+                            <a href={route('leagues.index')}><span className="nav-icon">🏆</span>Ligas</a>
+                            <a href={route('contact.create')}><span className="nav-icon">✉️</span>Contacto</a>
                         </nav>
 
                         <div className="site-auth">
@@ -50,9 +51,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <div className="card-body p-4 p-md-5">
                                 <h2 className="section-title">Accesos rápidos</h2>
                                 <div className="quick-actions">
-                                    <Link href={route('players.index')} className="btn btn-primary"><span className="btn-icon">👤</span>Jugadores</Link>
-                                    <Link href={route('teams.index')} className="btn btn-success"><span className="btn-icon">🛡️</span>Equipos</Link>
-                                    <Link href={route('leagues.index')} className="btn btn-info"><span className="btn-icon">🏆</span>Ligas</Link>
+                                    <a href={route('players.index')} className="btn btn-primary"><span className="btn-icon">👤</span>Jugadores</a>
+                                    <a href={route('teams.index')} className="btn btn-success"><span className="btn-icon">🛡️</span>Equipos</a>
+                                    <a href={route('leagues.index')} className="btn btn-info"><span className="btn-icon">🏆</span>Ligas</a>
+                                    <a href={route('contact.create')} className="btn btn-outline-secondary"><span className="btn-icon">✉️</span>Contacto</a>
                                 </div>
 
                                 <hr className="my-4" />

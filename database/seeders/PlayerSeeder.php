@@ -11,6 +11,10 @@ class PlayerSeeder extends Seeder
     public function run(): void
     {
         $teams = DB::table('teams')->select('id', 'league_id')->get();
+        $teamIds = $teams->pluck('id');
+
+        // Evita que se dupliquen jugadores en cada ejecución de seed.
+        DB::table('players')->whereIn('team_id', $teamIds)->delete();
 
         $nationalities = ['España', 'Argentina', 'Brasil', 'Francia', 'Portugal', 'Italia', 'Alemania', 'Inglaterra', 'Países Bajos', 'Uruguay'];
 

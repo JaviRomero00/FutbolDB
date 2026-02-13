@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Forum extends Model
+class ContactMessage extends Model
 {
     protected $fillable = [
-        'topic',
-        'content',
-        'is_active',
+        'name',
+        'email',
+        'subject',
+        'message',
         'user_id',
     ];
 

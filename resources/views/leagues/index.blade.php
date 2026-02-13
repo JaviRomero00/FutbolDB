@@ -3,10 +3,22 @@
 @section('title', 'Ligas | FutbolDB')
 
 @section('content')
+@php
+    $isAdmin = auth()->user()?->role === 'admin';
+    $adminMessage = 'No posees los requisitos necesarios para implementar cambios.';
+@endphp
+
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
     <h1 class="page-title mb-0">Ligas</h1>
     @if (Route::has('leagues.create'))
-        <a href="{{ route('leagues.create') }}" class="btn btn-primary">+ Nueva liga</a>
+        @if($isAdmin)
+            <a href="{{ route('leagues.create') }}" class="btn btn-primary">+ Nueva liga</a>
+        @else
+            <a href="#"
+               class="btn btn-primary"
+               data-admin-action="blocked"
+               data-message="{{ $adminMessage }}">+ Nueva liga</a>
+        @endif
     @endif
 </div>
 
@@ -27,7 +39,14 @@
                     <td>{{ $l->country ?? '-' }}</td>
                     <td>
                         @if (Route::has('leagues.edit'))
-                            <a href="{{ route('leagues.edit', $l->id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                            @if($isAdmin)
+                                <a href="{{ route('leagues.edit', $l->id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                            @else
+                                <a href="#"
+                                   class="btn btn-sm btn-outline-primary"
+                                   data-admin-action="blocked"
+                                   data-message="{{ $adminMessage }}">Editar</a>
+                            @endif
                         @endif
                     </td>
                 </tr>

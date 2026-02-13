@@ -7,16 +7,17 @@ export default function AuthenticatedLayout({ title, children }) {
         <div className="min-h-screen">
             <header className="site-header">
                 <div className="site-header__inner">
-                    <Link className="site-logo" href="/">
+                    <a className="site-logo" href="/">
                         FutbolDB
-                    </Link>
+                    </a>
 
                     <nav className="site-nav" aria-label="Navegación principal">
-                        <Link href="/"><span className="nav-icon">🏠</span>Inicio</Link>
+                        <a href="/"><span className="nav-icon">🏠</span>Inicio</a>
                         <Link href={route('dashboard')}><span className="nav-icon">📋</span>Panel</Link>
-                        <Link href={route('players.index')}><span className="nav-icon">👤</span>Jugadores</Link>
-                        <Link href={route('teams.index')}><span className="nav-icon">🛡️</span>Equipos</Link>
-                        <Link href={route('leagues.index')}><span className="nav-icon">🏆</span>Ligas</Link>
+                        <a href={route('players.index')}><span className="nav-icon">👤</span>Jugadores</a>
+                        <a href={route('teams.index')}><span className="nav-icon">🛡️</span>Equipos</a>
+                        <a href={route('leagues.index')}><span className="nav-icon">🏆</span>Ligas</a>
+                        <a href={route('contact.create')}><span className="nav-icon">✉️</span>Contacto</a>
                         <Link href={route('profile.edit')}><span className="nav-icon">⚙️</span>Perfil</Link>
                     </nav>
 

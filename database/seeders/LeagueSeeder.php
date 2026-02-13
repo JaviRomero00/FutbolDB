@@ -9,9 +9,9 @@ class LeagueSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('leagues')->insert([
+        DB::table('leagues')->upsert([
             ['name' => 'LaLiga', 'country' => 'España', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Premier League', 'country' => 'Inglaterra', 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        ], ['name'], ['country', 'updated_at']);
     }
 }

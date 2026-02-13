@@ -30,5 +30,22 @@
         </div>
     </main>
     @include('partials.footer')
+
+    <script>
+        document.addEventListener('click', function (event) {
+            var blockedAction = event.target.closest('[data-admin-action="blocked"]');
+
+            if (!blockedAction) {
+                return;
+            }
+
+            event.preventDefault();
+
+            var message = blockedAction.getAttribute('data-message')
+                || 'No posees los requisitos necesarios para implementar cambios.';
+
+            window.alert(message);
+        });
+    </script>
 </body>
 </html>

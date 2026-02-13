@@ -1,35 +1,66 @@
 # FutbolDB
 
-Aplicación web de fútbol construida con Laravel 11. Permite consultar clasificaciones y partidos desde `football-data.org`, además de gestionar ligas, equipos y jugadores con autenticación y roles.
+Aplicación web de fútbol construida con Laravel 11 + PostgreSQL.
 
-## Funcionalidades actuales
-- Inicio con selector de liga y tabla de clasificación.
-- Listado de partidos recientes.
-- Autenticación de usuarios (registro, login, recuperación y verificación de email).
-- Roles `user` y `admin` con rutas protegidas.
-- CRUD de `players`, `teams` y `leagues`.
-- Panel admin básico y configuración del footer.
+El proyecto combina:
+- consulta de datos de fútbol (clasificación y partidos recientes),
+- gestión interna de ligas, equipos y jugadores,
+- autenticación con roles,
+- y módulos sociales básicos (foros y buscador global).
 
-## Requisitos
+## Estado actual del proyecto
+
+Funcionalidades implementadas:
+- Autenticación completa: registro, login, verificación email, recuperación/cambio de contraseña.
+- Roles `admin` y `user` con rutas protegidas.
+- Inicio con clasificación por liga y partidos recientes (API externa).
+- CRUD de ligas, equipos y jugadores.
+- Buscador global (jugadores, equipos y ligas).
+- Página de contacto mínima para incidencias/sugerencias.
+- Foros básicos:
+  - listado,
+  - búsqueda,
+  - creación de temas,
+  - detalle,
+  - activar/desactivar,
+  - eliminación por autor o admin.
+- Footer configurable desde panel admin.
+
+## Stack técnico
+
+- PHP `^8.2`
+- Laravel `^11`
+- PostgreSQL `16`
+- Inertia + React
+- Bootstrap + Sass
+- Vite
+- Pest/PHPUnit para tests
+
+## Requisitos previos
+
 - PHP 8.2+
 - Composer
 - Node.js 18+ y npm
-- PostgreSQL 16 (opcionalmente vía Docker)
+- PostgreSQL (local o Docker)
 
-## Puesta en marcha
+## Instalación rápida (local)
+
 1. Instalar dependencias:
+
 ```bash
 composer install
 npm install
 ```
 
 2. Configurar entorno:
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
 3. Configurar base de datos en `.env`:
+
 ```env
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
@@ -39,57 +70,106 @@ DB_USERNAME=futboldb
 DB_PASSWORD=futboldb
 ```
 
-4. (Opcional) levantar PostgreSQL con Docker:
-```bash
-docker compose up -d db
-```
+4. Ejecutar migraciones y seeders:
 
-5. Migrar y sembrar datos:
 ```bash
 php artisan migrate --seed
 ```
 
-6. Configurar API key de fútbol:
-```env
-FOOTBALL_API_KEY=tu_api_key
-```
+5. Iniciar aplicación:
 
-7. Iniciar la aplicación:
 ```bash
 npm run start
 ```
 
-## Tests con PostgreSQL
-Los tests están configurados para PostgreSQL en `phpunit.xml`.
+## PostgreSQL con Docker
 
-1. Crear base de datos de testing:
+Levanta solo la BD:
+
+```bash
+docker compose up -d db
+```
+
+Comprobar estado:
+
+```bash
+docker compose ps
+```
+
+## API de fútbol
+
+Para poblar datos de inicio (clasificación/partidos) necesitas:
+
+```env
+FOOTBALL_API_KEY=Clave_Unica
+```
+
+Si no hay API key o falla la conexión, la web muestra mensajes de fallback.
+
+## Tests
+
+La suite está configurada para PostgreSQL en `phpunit.xml`:
+
+- `DB_CONNECTION=pgsql`
+- `DB_HOST=127.0.0.1`
+- `DB_PORT=5433`
+- `DB_DATABASE=futboldb_test`
+
+Crear la BD de test (si no existe):
+
 ```bash
 createdb -h 127.0.0.1 -p 5433 -U futboldb futboldb_test
 ```
 
-2. Ejecutar tests:
+Ejecutar tests:
+
 ```bash
 php artisan test
 ```
 
-## Credenciales de prueba
-Tras `php artisan migrate --seed` se crea este usuario:
+## Usuario de prueba
+
+Tras `php artisan migrate --seed`:
+
 - Email: `javi@futboldb.com`
 - Password: `password`
 - Rol: `admin`
 
 ## Rutas principales
-- `/` Inicio
-- `/football` Alias de inicio
-- `/players` Jugadores
-- `/teams` Equipos
-- `/leagues` Ligas
-- `/dashboard` Panel autenticado
-- `/admin` Panel de administración
+
+Públicas:
+- `/` inicio
+- `/football`
+- `/welcome`
+- `/contacto`
+
+Autenticadas:
+- `/players`
+- `/teams`
+- `/leagues`
+- `/forums`
+- `/search?q=...`
+- `/dashboard`
+
+Admin:
+- `/admin`
+- `/admin/footer`
+- creación/edición/borrado de ligas, equipos y jugadores
 
 ## Comandos útiles
+
 ```bash
-php artisan test
 php artisan route:list
+php artisan migrate --seed
+php artisan test
 ./vendor/bin/pint
+npm run build
 ```
+
+## Notas de mantenimiento
+
+- Los seeders de ligas/equipos usan `upsert` para evitar duplicados.
+- Se añadieron índices únicos para reforzar integridad:
+  - ligas por `name`
+  - equipos por `name + league_id`
+- El seeder de jugadores regenera jugadores por equipo en cada seed para mantener datos consistentes.

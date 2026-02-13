@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\FooterSettingsController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +60,15 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/forums', [ForumController::class, 'index'])->name('forums.index');
+    Route::get('/forums/create', [ForumController::class, 'create'])->name('forums.create');
+    Route::post('/forums', [ForumController::class, 'store'])->name('forums.store');
+    Route::get('/forums/{forum}', [ForumController::class, 'show'])->name('forums.show');
+    Route::patch('/forums/{forum}/toggle', [ForumController::class, 'toggle'])->name('forums.toggle');
+    Route::delete('/forums/{forum}', [ForumController::class, 'destroy'])->name('forums.destroy');
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+
     Route::get('/players', [PlayerController::class, 'index'])->name('players.index');
     Route::get('/players/{id}', [PlayerController::class, 'show'])->name('players.show');
 
@@ -66,5 +78,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/football', [HomeController::class, 'index'])->name('football.index');
+Route::get('/contacto', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contacto', [ContactController::class, 'store'])->name('contact.store');
 
 require __DIR__.'/auth.php';

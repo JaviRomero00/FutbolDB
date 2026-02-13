@@ -94,6 +94,17 @@ body {
     gap: 8px;
 }
 
+.site-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 280px;
+}
+
+.site-search .form-control {
+    min-width: 180px;
+}
+
 .page-hero {
     background: radial-gradient(circle at right top, #def4e4 0%, #f8fcf9 60%);
     border: 1px solid var(--line);
@@ -261,6 +272,10 @@ body {
     .site-header__inner {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .site-search {
+        min-width: 100%;
     }
 
     .site-auth {

@@ -11,9 +11,17 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, $role)
     {
         $user = $request->user();
+        $message = 'No posees los requisitos necesarios para implementar cambios.';
 
         if (!$user || $user->role !== $role) {
-            return redirect()->route('dashboard')->with('error', 'Acceso denegado.');
+            $previousUrl = url()->previous();
+            $currentUrl = $request->fullUrl();
+
+            if ($previousUrl && $previousUrl !== $currentUrl) {
+                return redirect()->to($previousUrl)->with('error', $message);
+            }
+
+            abort(403, $message);
         }
 
         return $next($request);

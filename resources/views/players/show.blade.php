@@ -3,12 +3,24 @@
 @section('title', $player->name . ' | FutbolDB')
 
 @section('content')
+@php
+    $isAdmin = auth()->user()?->role === 'admin';
+    $adminMessage = 'No posees los requisitos necesarios para implementar cambios.';
+@endphp
+
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
     <h1 class="page-title mb-0">{{ $player->name }}</h1>
     <div>
         <a href="{{ route('players.index') }}" class="btn btn-outline-secondary">Volver</a>
         @if (Route::has('players.edit'))
-            <a href="{{ route('players.edit', $player->id) }}" class="btn btn-primary">Editar</a>
+            @if($isAdmin)
+                <a href="{{ route('players.edit', $player->id) }}" class="btn btn-primary">Editar</a>
+            @else
+                <a href="#"
+                   class="btn btn-primary"
+                   data-admin-action="blocked"
+                   data-message="{{ $adminMessage }}">Editar</a>
+            @endif
         @endif
     </div>
 </div>
